@@ -21,14 +21,15 @@ router.get('/books',function(req,res){
 
 router.post('/books',function(req,res){
 	var newBook = new books;
-	newBook.title = req.params.title;
-	newBook.author = req.params.author;
-	newBook.category = req.params.category;
+	newBook.title = req.body.title;
+	newBook.author = req.body.author;
+	newBook.category = req.body.category;
 
 	newBook.save(function(err){
 		if(err){
 				console.log("error has occured")
 			}
+		res.send("<p>Entry is Added.</p>");
 	});
 });
 
@@ -43,7 +44,7 @@ router.get('/books/:id',function(req,res){
 });
 
 router.put('/books/:id',function(req,res){
-	books.findOneAndUpdate({_id: req.params.id},{$set: {title: req.params.title}}, {upsert: true},function(err,book){
+	books.findOneAndUpdate({_id: req.params.id},{$set: {title: req.body.title}}, {upsert: true},function(err,book){
 			if(err){
 				console.log("Not Found");
 			}
